@@ -1,0 +1,8 @@
+<html>
+<head></head>
+<body>
+<% for picture in @pictures %>
+<div><img src="/images/pics/<%=@board[:thread_id]%>/<%=picture[:url] %>" /></div>
+<% end %>
+</body>
+</html>
