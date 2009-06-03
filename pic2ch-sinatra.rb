@@ -15,7 +15,7 @@ helpers do
   alias_method :u, :escape
 
   def parts_board_list
-    @parts_board_list_boards = DB[:boards].reverse_order(:id).limit(10).all
+    @parts_board_list_boards = DB[:boards].reverse_order(:id).all
     erb "parts/board_list".to_sym
   end
 
@@ -42,7 +42,9 @@ end
 
 get '/thread/:id' do
   @board = DB[:boards][:id => params[:id]]
-  @pictures = DB[:pictures].filter(:board_id => params[:id]).all
+  pictures = DB[:pictures].filter(:board_id => params[:id]).map(:url)
+  @count = pictures.count
+  @urls = pictures.join(':')
   erb :thread
 end
 

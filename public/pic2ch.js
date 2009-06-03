@@ -124,7 +124,7 @@ pic2ch.slideshow = (function() {
                         cimage.removeChild(img);
                     };
                     cimage.appendChild(img);
-                    img.src = '/images/pics/' + id + urls[(position + i) % urls.length] + '.jpg'; 
+                    img.src = path + '/pics/' + id + '/' + urls[(position + i) % urls.length]; 
                 }
             })(i);
             if (thumbs['now' + (i + 1)]) {
@@ -132,7 +132,7 @@ pic2ch.slideshow = (function() {
             }
             thumbs['thumb' + (i + 1)].appendChild(img);
             thumbs['now' + (i + 1)] = img;
-            img.src = '/images/thumbs/' + id + urls[(position + i) % urls.length] + '.jpg';
+            img.src = path + '/thumbs/' + id + '/' + urls[(position + i) % urls.length];
         }
     };
 
@@ -140,7 +140,8 @@ pic2ch.slideshow = (function() {
         init: function(settings) {
             urls = settings.urls || [];
             container = pic2ch.$.s(settings.container) || document;
-            id = settings.id || '';
+            path = settings.path;
+            id = settings.id;
             createUI();
             this.next();
         },
