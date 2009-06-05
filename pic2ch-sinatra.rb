@@ -1,7 +1,9 @@
 require 'rubygems'
 require 'sinatra'
 require 'erb'
+require 'builder'
 require 'sequel'
+require File.dirname(__FILE__) + '/lib/helpers'
 
 DB = Sequel.connect('sqlite://test.db')
 
@@ -16,23 +18,20 @@ helpers do
 
   def parts_board_list
     @parts_board_list_boards = DB[:boards].reverse_order(:id).all
-    erb "parts/board_list".to_sym
+    partial "parts/board_list".to_sym
   end
 
   def parts_info
-    erb "parts/info".to_sym
+    partial "parts/info".to_sym
   end
 
   def parts_ad
-    erb "parts/ad".to_sym
+    partial "parts/ad".to_sym
   end
 
-  def parts_footer
-    erb "parts/footer".to_sym
-  end
-
-  def picurl
-    options.picurl
+  def picdata
+    h = DB[:histories].reverse_order(:id).first
+    "#{h[:count]} pieces(#{h[:size].to_i / (1024 * 1024)} Mbyte)"
   end
 end
 
@@ -49,6 +48,8 @@ get '/thread/:id' do
 end
 
 get '/feed' do
+  @feeds = DB[:feeds].reverse_order(:id).limit(10)
+  builder :feed
 end
 
 configure :production do
@@ -58,8 +59,4 @@ configure :production do
   error do
     '<div>500</div><div><a href="/">TOP</a></div>' 
   end
-end
-
-get '/a' do
-  options.picurl
 end

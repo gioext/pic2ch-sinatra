@@ -1,27 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="ja">
-<head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-<meta http-equiv="content-script-type" content="text/javascript"/>
-<meta http-equiv="content-style-type" content="text/css"/>
-<meta name="keywords" content="2ch,vip,画像,絵,まとめ"/>
-<meta name="description" content="2ch画像まとめサイト。2chに書き込まれた画像が全て見れます！面白画像、エロ画像多数あり。常に最新の情報に更新されています。"/>
-<meta name="verify-v1" content="ePPL3qVW/7DeTPnasbxeygRQZ2pcSSeKm/y5ixvw7dE=" />
-<meta name="y_key" content="eb7d4d3b35906d30" />
-<link rel="alternate" type="application/atom+xml" title="Atom" href="/feed" />
-<link rel="stylesheet" type="text/css" href="/pic2ch-min.css" />
-<title>2ch画像まとめbeta</title>
-</head>
-<body>
-<div id="content">
-<h1>2ch画像まとめ
-<a href="http://b.hatena.ne.jp/append?http://pic2ch.giox.org/"><img src="/images/b_hatena.gif" alt="Hatenaブックマークに追加" title="Hatenaブックマークに追加"></a><a href="http://b.hatena.ne.jp/entry/http://pic2ch.giox.org/"><img src="http://b.hatena.ne.jp/entry/image/normal/http://pic2ch.giox.org/"></a><a href="http://clip.livedoor.com/clip/add?link=http://pic2ch.giox.org/"><img src="/images/b_clip.gif" alt="livedoorクリップに追加" title="livedoorクリップに追加"></a><a href="/feed"><img src="/images/feed.png" /></a>
-</h1>
+<% content_for :keywords, 'TOP' %>
+<% content_for :description, 'TOP' %>
+<% content_for :title, 'TOP' %>
 <h2>このサイトを使う前に</h2>
-<div><%= parts_info %></div>
+<div><%= parts :info %></div>
 <h2>スレッド一覧</h2>
-<% if production? %><%= parts_ad %><% end %>
-<div id="list"><%= parts_board_list %></div>
-<div id="footer"><%= parts_footer %></div>
-</body>
-</html>
+<% if production? %><%= parts :ad %><% end %>
+<div id="list"><%= parts :board_list %></div>
