@@ -20,6 +20,6 @@ helpers do
   end
 
   def atom_time(date)
-    date.getgm.strftime("%Y-%m-%dT%H:%M:%SZ")
+    date.strftime("%Y-%m-%dT%H:%M:%SZ")
   end
 end

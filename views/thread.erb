@@ -15,7 +15,7 @@
 <![endif]-->
 <script type="text/javascript" src="/pic2ch-min.js"></script>
 <script type="text/javascript">
-window.onload=function(){pic2ch.slideshow.init({id:'<%= @board[:thread_id] %>',urls:'<%= @urls %>'.split(':'),path:'<%= Sinatra::Application.options.picurl %>',container:'container'});
+window.onload=function(){pic2ch.slideshow.init({id:'<%= @board[:thread_id] %>',urls:'<%= @urls %>'.split(':'),path:'<%= picurl %>',container:'container'});
 pic2ch.addStar('add', 'star', '<%= @board[:id] %>', <%= @board[:star] %>);
 };
 </script>

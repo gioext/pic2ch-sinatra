@@ -124,7 +124,7 @@ pic2ch.slideshow = (function() {
                         cimage.removeChild(img);
                     };
                     cimage.appendChild(img);
-                    img.src = path + '/pics/' + id + '/' + urls[(position + i) % urls.length]; 
+                    img.src = path + '/pics3/' + id + '/' + urls[(position + i) % urls.length]; 
                 }
             })(i);
             if (thumbs['now' + (i + 1)]) {

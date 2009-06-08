@@ -1,3 +1,6 @@
-<% for b in @parts_board_list_boards %>
+<h2>スレッド一覧<span class="updated">Last Updated: <%= @boards.first[:updated_at] %></span></h2>
+<div><% if production? %><%= parts :ad %><% end %></div>
+<% for b in @boards %>
 <a href="/thread/<%= b[:id] %>"><%= b[:title].strip %></a><% unless b[:star].zero? %><span id="star"><img src="/images/star.gif"/><%= b[:star] %></span><% end %><br />
 <% end %>
+<%= @paginate %>

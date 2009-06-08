@@ -1,0 +1,14 @@
+<h2>check</h2>
+<% n = 0 %>
+<table style="text-align:center">
+<% for p in @pictures %>
+<% if n % 5 == 0 %><tr><% end %>
+<td>
+<img src="<%= picurl %>/thumbs/<%= p[:thread_id] %>/<%= p[:url] %>" />
+<div><a href="">guro</a></div>
+</td>
+<% if n % 5 == 4 %></tr><% end %>
+<% n += 1 %>
+<% end %>
+</table>
+<%= @paginate %>

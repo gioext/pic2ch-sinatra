@@ -1,8 +1,5 @@
 <% content_for :keywords, 'TOP' %>
 <% content_for :description, 'TOP' %>
 <% content_for :title, 'TOP' %>
-<h2>このサイトを使う前に</h2>
 <div><%= parts :info %></div>
-<h2>スレッド一覧</h2>
-<% if production? %><%= parts :ad %><% end %>
 <div id="list"><%= parts :board_list %></div>
