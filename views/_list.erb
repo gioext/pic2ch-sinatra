@@ -7,7 +7,7 @@ Last Updated:<%= local_time(@boards.first[:updated_at]).strftime('%Y/%m/%d %H:%M
 <% for b in @boards %>
 <a href="/thread/<%= b[:id] %>"><%= b[:title].strip %></a>
 <span class="created"><%= local_time(b[:created_at]).strftime('%y/%m/%d') %></span>
-<% unless b[:star].zero? %><span id="star"><img src="/images/star.gif"/><%= b[:star] %></span><% end %>
+<% unless b[:star].zero? %><span id="star"><img src="<%= static('/images/star.gif') %>" /><%= b[:star] %></span><% end %>
 <br />
 <% end %>
 <%= @paginate %>

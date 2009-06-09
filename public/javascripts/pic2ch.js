@@ -29,11 +29,11 @@ pic2ch.$ = (function() {
 
 pic2ch.addStar = (function(add, star, id, count) {
     var img10 = new Image();
-    img10.src = '/images/star10.gif';
     var img = new Image();
-    img.src = '/images/star.gif';
 
-    return function(add, star, id, count) {
+    return function(add, star, id, count, host) {
+        img10.src = host + '/images/star10.gif';
+        img.src = host + '/images/star.gif';
         var star10 = Math.floor(count / 10);
         var starn = count % 10;
         var estar = pic2ch.$.s(star);

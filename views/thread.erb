@@ -1,7 +1,7 @@
 <% content_for :keywords, @board[:title].strip %>
 <% content_for :description, @board[:title].strip %>
 <% content_for :title, @board[:title].strip %>
-<h2><%= @board[:title] %>(<%= @count %>)<span id="star"><img id="add" src="/images/add.gif" /></span></h2>
+<h2><%= @board[:title] %>(<%= @count %>)<span id="star"><img id="add" src="<%= static('/images/add.gif') %>" /></span></h2>
 <% if production? %>
 <div class="ads_container">
 <div class="adb">
@@ -18,6 +18,6 @@
 window.onload=function(){
 pic2ch.slideshow.init(
 {id:'<%= @board[:thread_id] %>',urls:'<%= @urls %>'.split(':'),path:'<%= static %>',container:'container'});
-pic2ch.addStar('add', 'star', '<%= @board[:id] %>', <%= @board[:star] %>);
+pic2ch.addStar('add', 'star', '<%= @board[:id] %>', <%= @board[:star] %>, '<%= static %>');
 };
 </script>
