@@ -8,11 +8,16 @@ helpers do
 
   def content_for(name, content)
     @content_variables ||= {}
-    @content_variables[name] = content
+    if @content_variables[name]
+      @content_variables[name] += content
+    else
+      @content_variables[name] = content
+    end
   end
 
   def partial(name)
-    erb name, :layout => false
+    sym = ("_" + name.to_s).to_sym
+    erb sym, :layout => false
   end
 
   def parts(name)

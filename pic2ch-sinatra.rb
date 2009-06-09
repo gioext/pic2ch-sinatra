@@ -19,7 +19,7 @@ end
 
 get '/feed' do
   @feeds = DB[:feeds].reverse_order(:id).limit(10)
-  content_type "application/xml+atom"
+  content_type "application/atom+xml"
   builder :feed
 end
 
@@ -34,30 +34,6 @@ get '/star/:id' do
     'NG'
   end
 end
-
-get '/admin' do
-  erb '<h2>admin</h2><a href="/admin/check">check</a><br /><a href="/admin/info">info</a>'
-end
-
-get '/admin/check' do
-  p = params[:p] || 1
-  p = p.to_i
-  @pictures = DB[:pictures].select(:pictures__url).select_more(:boards__thread_id).
-    join(:boards, :id => :board_id).reverse_order(:pictures__id).limit(50, (p - 1) * 50)
-  @paginate = "" 
-  if p > 1
-    @paginate << %{<a href="/admin/check?p=#{p - 1}">prev</a>}
-    @paginate << %{<a href="/admin/check?p=#{p + 1}">next</a>}
-  elsif
-    @paginate << %{<a href="/admin/check?p=#{p + 1}">next</a>}
-  end
-  erb :check
-end
-
-get '/admin/info' do
-  erb 'info'
-end
-
 ##
 
 helpers do
@@ -68,19 +44,23 @@ helpers do
   def parts_board_list
     ds = DB[:boards].reverse_order(:updated_at)
     @boards, @paginate = paginate(ds, params[:p] || 1)
-    partial "parts/board_list".to_sym
+    partial :list
   end
 
   def parts_info
-    partial "parts/info".to_sym
+    partial :info
   end
 
   def parts_ad
-    partial "parts/ad".to_sym
+    partial :ad
   end
 
-  def picurl
-    options.picurl
+  def static(path = nil)
+    if path
+      "#{options.static_url}/#{path}"
+    else
+      options.static_url
+    end
   end
 
   def picdata
@@ -110,9 +90,9 @@ end
 
 ##
 
-configure :production do
+configure :production, :test do
   DB = Sequel.connect('sqlite:///home/gioext/pic2ch/db/production.sqlite3')
-  set :picurl, "http://strage.pic2ch.giox.org"
+  set :static_url, "http://strage.orelog.us"
 
   not_found do
     '<div>404</div><div><a href="/">TOP</a></div>' 
@@ -124,7 +104,7 @@ configure :production do
 end
 
 configure :development do
-  DB = Sequel.connect('sqlite://test.db')
-  set :picurl, "http://localhost/~kazuki/strage"
+  DB = Sequel.connect('sqlite://dev.db')
+  set :static_url, "http://localhost/~kazuki/strage"
 end
 
