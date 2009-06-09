@@ -27,7 +27,7 @@ get '/star/:id' do
   begin
     if params[:id]
       board = DB[:boards].filter(:id => params[:id])
-      board.update(:star => board.first[:star] + 1, :updated_at => Time.now)
+      board.update(:star => board.first[:star] + 1, :updated_at => Time.now.getgm)
     end
     'OK'
   rescue

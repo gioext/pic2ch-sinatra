@@ -3,7 +3,7 @@ APP_ROOT = "/home/gioext/pic2ch-sinatra"
 
 desc "deploy"
 task :deploy do
-  sh "rsync -avz --delete --exclude '.*' --exclude '*.db' --exclude 'log/*' ./ #{SERVER}:#{APP_ROOT}"
+  sh "rsync -avz --delete --exclude '.*' --exclude '*.db' --exclude 'log/*' --exclude 'public/pics3' --exclude 'public/thumbs' ./ #{SERVER}:#{APP_ROOT}"
 end
 
 desc "restart"
