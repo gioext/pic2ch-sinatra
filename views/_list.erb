@@ -1,10 +1,13 @@
 <h2>スレッド一覧
 <span class="updated">
-Last Updated:<%= @boards.first[:updated_at].strftime('%Y/%m/%d %H:%M:%S') %>
+Last Updated:<%= @boards.first[:updated_at].localtime.strftime('%Y/%m/%d %H:%M:%S') %>
 </span>
 </h2>
 <% if production? %><div><%= parts :ad %></div><% end %>
 <% for b in @boards %>
-<a href="/thread/<%= b[:id] %>"><%= b[:title].strip %></a><% unless b[:star].zero? %><span id="star"><img src="/images/star.gif"/><%= b[:star] %></span><% end %><br />
+<a href="/thread/<%= b[:id] %>"><%= b[:title].strip %></a>
+<span class="created"><%= b[:created_at].localtime.strftime('%y/%m/%d') %></span>
+<% unless b[:star].zero? %><span id="star"><img src="/images/star.gif"/><%= b[:star] %></span><% end %>
+<br />
 <% end %>
 <%= @paginate %>

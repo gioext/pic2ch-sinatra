@@ -49,6 +49,10 @@ ul {
     margin: 5px;
     font-size: 11px;
 }
+.created {
+    font-size:9px;
+    color:#66f;
+}
 
 #container {
     margin-top: 2px;

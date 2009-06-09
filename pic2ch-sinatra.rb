@@ -56,11 +56,7 @@ helpers do
   end
 
   def static(path = nil)
-    if path
-      "#{options.static_url}/#{path}"
-    else
-      options.static_url
-    end
+    options.static_url + path.to_s
   end
 
   def picdata
@@ -105,6 +101,6 @@ end
 
 configure :development do
   DB = Sequel.connect('sqlite://dev.db')
-  set :static_url, "http://localhost/~kazuki/strage"
+  set :static_url, ""
 end
 

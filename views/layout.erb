@@ -9,14 +9,14 @@
 <meta name="verify-v1" content="ePPL3qVW/7DeTPnasbxeygRQZ2pcSSeKm/y5ixvw7dE=" />
 <meta name="y_key" content="eb7d4d3b35906d30" />
 <link rel="alternate" type="application/atom+xml" title="Atom" href="/feed" />
-<link rel="stylesheet" type="text/css" href="/stylesheets/pic2ch-min.css?1" />
+<link rel="stylesheet" type="text/css" href="<%= static('/stylesheets/pic2ch-min.css?1') %>" />
 <title><%= content :title %> - 2ch画像まとめ</title>
 </head>
 <body>
 <div id="content">
 <h1><a href="/" style="color:#000">2ch画像まとめ</a>
 <% if production? %>
-<a href="http://b.hatena.ne.jp/append?http://pic2ch.giox.org/"><img src="/images/b_hatena.gif" alt="Hatenaブックマークに追加" title="Hatenaブックマークに追加"></a><a href="http://b.hatena.ne.jp/entry/http://pic2ch.giox.org/"><img src="http://b.hatena.ne.jp/entry/image/normal/http://pic2ch.giox.org/"></a><a href="http://clip.livedoor.com/clip/add?link=http://pic2ch.giox.org/"><img src="/images/b_clip.gif" alt="livedoorクリップに追加" title="livedoorクリップに追加"></a><a href="/feed"><img src="/images/feed.png" /></a>
+    <a href="http://b.hatena.ne.jp/append?http://pic2ch.giox.org/"><img src="<%= static('/images/b_hatena.gif') %>" alt="Hatenaブックマークに追加" title="Hatenaブックマークに追加"></a><a href="http://b.hatena.ne.jp/entry/http://pic2ch.giox.org/"><img src="http://b.hatena.ne.jp/entry/image/normal/http://pic2ch.giox.org/"></a><a href="http://clip.livedoor.com/clip/add?link=http://pic2ch.giox.org/"><img src="<%= static('/images/b_clip.gif') %>" alt="livedoorクリップに追加" title="livedoorクリップに追加"></a><a href="/feed"><img src="<%= static('/images/feed.png') %>" /></a>
 <% end %>
 </h1>
 <%= yield %>
