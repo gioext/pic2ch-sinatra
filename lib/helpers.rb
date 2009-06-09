@@ -27,4 +27,8 @@ helpers do
   def atom_time(date)
     date.strftime("%Y-%m-%dT%H:%M:%SZ")
   end
+
+  def local_time(date)
+    date + 3600 * 9
+  end
 end
