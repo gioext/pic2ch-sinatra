@@ -181,6 +181,6 @@ ul {
 .new {
     background-image: url("/images/new.gif");
     background-repeat: no-repeat;
-    background-position: left center;
-    padding-left: 35px;
+    background-position: right bottom;
+    padding-right: 35px;
 }

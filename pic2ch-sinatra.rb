@@ -12,7 +12,7 @@ end
 get '/thread/:id' do
   @board = DB[:boards][:id => params[:id]]
   unless @board
-    halt erb('<div>このスレッドは削除されたよ</div>')
+    halt erb(:del)
   end
   pictures = DB[:pictures].filter(:board_id => params[:id]).map(:url)
   @count = pictures.length
@@ -68,16 +68,23 @@ helpers do
     now = Time.now
     create = local_time(board[:created_at])
 
-    if (now - create).abs < (3600 * 10)
+    if (now - create).abs < (3600 * 12)
       %{<span class="new">#{title}</span>}
     else
       title
     end
   end
 
+  def last_history
+    @last_history ||= DB[:histories].reverse_order(:id).first
+  end
+
   def picdata
-    h = DB[:histories].reverse_order(:id).first
-    "#{h[:count]} pieces(#{h[:size].to_i / (1024 * 1024)} Mbyte)"
+    "#{last_history[:count]}Pieces/#{last_history[:size].to_i / (1024 * 1024)}Mbyte"
+  end
+
+  def last_updated
+    last_history[:value].gsub('.', '/')
   end
 
   def paginate(ds, page)

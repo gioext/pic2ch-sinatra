@@ -1,7 +1,5 @@
 <h2>スレッド一覧
-<span class="updated">
-Last Updated:<%= local_time(@boards.first[:updated_at]).strftime('%Y/%m/%d %H:%M:%S') %>
-</span>
+<span class="updated">Last Updated:<%= last_updated %></span>
 </h2>
 <% if production? %><div><%= parts :ad %></div><% end %>
 <% for b in @boards %>
