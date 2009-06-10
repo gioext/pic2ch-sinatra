@@ -80,11 +80,10 @@ ul {
     top: 30px;
 }
 .star {
-    margin-left: 5px;
     background-image: url("/images/star.gif");
     background-repeat: no-repeat;
     background-position: left center;
-    padding-left: 20px;
+    padding-left: 15px;
 }
 #overlay {
     position: fixed;
