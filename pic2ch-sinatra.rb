@@ -68,9 +68,7 @@ helpers do
     now = Time.now
     create = local_time(board[:created_at])
 
-    if now.year == create.year &&
-      now.month == create.month &&
-      now.day == create.day
+    if (now - create).abs < (3600 * 10)
       %{<span class="new">#{title}</span>}
     else
       title
