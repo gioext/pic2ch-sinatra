@@ -79,10 +79,14 @@ ul {
 #slide_right {
     top: 30px;
 }
-#star {
+.star {
     margin-left: 5px;
+    background-image: url("/images/star.gif");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
 }
-div#overlay {
+#overlay {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -95,7 +99,7 @@ div#overlay {
     -moz-opacity:0.7;
     visibility: hidden;
 }
-div#slide_image {
+#slide_image {
     position: absolute;
     z-index: 1001;
     visibility: hidden;
@@ -103,16 +107,16 @@ div#slide_image {
     left: 50%;
     cursor: pointer;
 }
-div#slide_image img {
+#slide_image img {
     z-index: 1001;
 }
-div#slide_thumbs {
+#slide_thumbs {
     position: relative;
     margin: auto;
     top: 150px;
     width: 660px;
 }
-div#slide_thumbs div {
+#slide_thumbs div {
     position: relative;
     border: solid 1px #AAF;
     width: 120px;
@@ -120,13 +124,13 @@ div#slide_thumbs div {
     margin: 5px;
     float: left;
 }
-div#slide_thumbs img {
+#slide_thumbs img {
     position: absolute;
     top: 50%;
     left: 50%;
     cursor: pointer;
 } 
-div#loading {
+#loading {
     position: absolute;
     z-index: 1002;
     top: 50%;
@@ -158,11 +162,11 @@ div#loading {
     font-size: 10px;
 }
 
-div.paginate {
+.paginate {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-div.paginate a {
+.paginate a {
     padding: 5px;
     margin: 1px;
     border: solid 1px #ccc;
@@ -175,3 +179,9 @@ div.paginate a {
     border: solid 1px #333;
 }
 .paginate span.enable_page { }
+.new {
+    background-image: url("/images/new.gif");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 35px;
+}

@@ -11,6 +11,9 @@ end
 
 get '/thread/:id' do
   @board = DB[:boards][:id => params[:id]]
+  unless @board
+    halt erb('<div>このスレッドは削除されたよ</div>')
+  end
   pictures = DB[:pictures].filter(:board_id => params[:id]).map(:url)
   @count = pictures.length
   @urls = pictures.join(':')
@@ -34,6 +37,7 @@ get '/star/:id' do
     'NG'
   end
 end
+
 ##
 
 helpers do
@@ -57,6 +61,20 @@ helpers do
 
   def static(path = nil)
     options.static_url + path.to_s
+  end
+
+  def title(board)
+    title = board[:title].strip
+    now = Time.now
+    create = local_time(board[:created_at])
+
+    if now.year == create.year &&
+      now.month == create.month &&
+      now.day == create.day
+      %{<span class="new">#{title}</span>}
+    else
+      title
+    end
   end
 
   def picdata
@@ -91,11 +109,11 @@ configure :production, :test do
   set :static_url, "http://strage.orelog.us"
 
   not_found do
-    '<div>404</div><div><a href="/">TOP</a></div>' 
+    erb '<div>404</div>'
   end
 
   error do
-    '<div>500</div><div><a href="/">TOP</a></div>' 
+    erb '<div>500</div>'
   end
 end
 
