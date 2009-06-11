@@ -65,10 +65,10 @@ helpers do
 
   def title(board)
     title = board[:title].strip
-    now = Time.now
-    create = local_time(board[:created_at])
+    now = Time.now.getgm
+    create = board[:created_at]
 
-    if (now - create).abs < (3600 * 12)
+    if (now - create).abs < (3600 * 10)
       %{<span class="new">#{title}</span>}
     else
       title
