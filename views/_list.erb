@@ -4,7 +4,7 @@
 <% if production? %><div><%= parts :ad %></div><% end %>
 <% for b in @boards %>
 <a href="/thread/<%= b[:id] %>"><%= title(b) %></a>
-<span class="created"><%= local_time(b[:created_at]).strftime('%y/%m/%d') %></span>
+<span class="created"><%= b[:created_at].strftime('%y/%m/%d') %></span>
 <% unless b[:star].zero? %><span class="star"><%= b[:star] %></span><% end %>
 <br />
 <% end %>

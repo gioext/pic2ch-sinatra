@@ -30,7 +30,7 @@ get '/star/:id' do
   begin
     if params[:id]
       board = DB[:boards].filter(:id => params[:id])
-      board.update(:star => board.first[:star] + 1, :updated_at => Time.now.getgm)
+      board.update(:star => board.first[:star] + 1, :updated_at => Time.now)
     end
     'OK'
   rescue
@@ -65,7 +65,7 @@ helpers do
 
   def title(board)
     title = board[:title].strip
-    now = Time.now.getgm
+    now = Time.now
     create = board[:created_at]
 
     if (now - create).abs < (3600 * 10)
