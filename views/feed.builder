@@ -9,7 +9,7 @@ xml.instruct! :xml, :version => "1.0"
 xml.feed(:xmlns => 'http://www.w3.org/2005/Atom') do
   xml.id      base_url + '/'
   xml.title   title
-  xml.updated atom_time(@feeds.first[:created_at])
+  xml.updated atom_time(@feeds.first[:datetime])
   xml.link(:rel => 'alternate', :href => "#{base_url}/")
   xml.link(:ref => 'self',      :href => feed_url)
 
@@ -20,7 +20,7 @@ xml.feed(:xmlns => 'http://www.w3.org/2005/Atom') do
 
   @feeds.each do |feed|
     xml.entry do
-      created_at = atom_time(feed[:created_at])
+      created_at = atom_time(feed[:datetime])
       items = DB[:feed_items].filter(:feed_id => feed[:id]).all
       contents = items.map do |e|
         %{<a href="#{base_url}/thread/#{e[:board_id]}">#{e[:title]}</a> #{e[:count]} pieces}
