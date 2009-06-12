@@ -30,7 +30,7 @@ xml.feed(:xmlns => 'http://www.w3.org/2005/Atom') do
       xml.title     "#{title}(#{feed[:id]})", :type => 'html'
       xml.published created_at
       xml.updated   created_at
-      xml.link(:rel => 'alternate', :href => "#{base_url}/")
+      xml.link(:rel => 'alternate', :href => "#{base_url}/?#{feed[:id]}")
       xml.content   contents.join('<br />'), :type => 'html'
 #      xml.summary   "updated:#{feed[:created_at]}", :type => 'html'
     end
