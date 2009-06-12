@@ -23,7 +23,7 @@ xml.feed(:xmlns => 'http://www.w3.org/2005/Atom') do
       created_at = atom_time(feed[:datetime])
       items = DB[:feed_items].filter(:feed_id => feed[:id]).all
       contents = items.map do |e|
-        %{<a href="#{base_url}/thread/#{e[:board_id]}">#{e[:title]}</a> #{e[:count]} pieces}
+        %{<a href="#{base_url}/thread/#{e[:board_id]}/#{u(e[:title])}">#{e[:title]}</a> #{e[:count]} pieces}
       end
 
       xml.id        "tag:" + base_url.gsub("http://", "") + "," + created_at

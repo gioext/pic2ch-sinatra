@@ -9,7 +9,7 @@ get '/' do
   erb :index
 end
 
-get '/thread/:id' do
+get '/thread/:id/?*' do
   @board = DB[:boards][:id => params[:id]]
   unless @board
     halt erb(:del)
