@@ -1,9 +1,11 @@
 SERVER = "gioext@giox.org"
-APP_ROOT = "/home/gioext/pic2ch-sinatra"
+APP_ROOT = "/home/gioext/pic2ch-sinatra2"
 
 desc "deploy"
 task :deploy do
-  sh "rsync -avz --delete --exclude '.*' --exclude '*.db' --exclude 'log/*' --exclude 'public/pics3' --exclude 'public/thumbs' ./ #{SERVER}:#{APP_ROOT}"
+  exclude = ['public', 'log', 'tmp', '.*', '*.db']
+  e = exclude.map! { |e| "--exclude '#{e}'" }.join(' ')
+  sh "rsync -avz --delete #{e} ./ #{SERVER}:#{APP_ROOT}"
 end
 
 desc "restart"

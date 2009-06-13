@@ -4,33 +4,43 @@ require 'erb'
 require 'builder'
 require 'sequel'
 require File.dirname(__FILE__) + '/lib/helpers'
+require File.dirname(__FILE__) + '/lib/sinatra-memcache'
 
 get '/' do
-  erb :index
+  cache "index" do
+    erb :index
+  end
 end
 
 get '/thread/:id/?*' do
-  @board = DB[:boards][:id => params[:id]]
-  unless @board
-    halt erb(:del)
+  cache "thread:#{params[:id]}" do
+    @board = DB[:boards][:id => params[:id]]
+    unless @board
+      halt erb(:del)
+    end
+    pictures = DB[:pictures].filter(:board_id => params[:id]).map(:url)
+    @count = pictures.length
+    @urls = pictures.join(':')
+    erb :thread
   end
-  pictures = DB[:pictures].filter(:board_id => params[:id]).map(:url)
-  @count = pictures.length
-  @urls = pictures.join(':')
-  erb :thread
 end
 
 get '/feed' do
-  @feeds = DB[:feeds].reverse_order(:id).limit(10)
-  content_type "application/atom+xml"
-  builder :feed
+  cache "feed" do
+    @feeds = DB[:feeds].reverse_order(:id).limit(10)
+    content_type "application/atom+xml"
+    builder :feed
+  end
 end
 
 get '/star/:id' do
+  id = params[:id]
   begin
     if params[:id]
       board = DB[:boards].filter(:id => params[:id])
       board.update(:star => board.first[:star] + 1, :updated_at => Time.now)
+      expire "index"
+      expire "thread:#{id}"
     end
     'OK'
   rescue
@@ -38,13 +48,14 @@ get '/star/:id' do
   end
 end
 
+get '/expire-cache-all' do
+  expire_all
+  redirect '/'
+end
+
 ##
 
 helpers do
-  include Rack::Utils
-  alias_method :h, :escape_html
-  alias_method :u, :escape
-
   def parts_board_list
     ds = DB[:boards].reverse_order(:updated_at)
     @boards, @paginate = paginate(ds, params[:p] || 1)
@@ -109,9 +120,26 @@ end
 
 ##
 
+configure do
+  set :cache_client, MemCache.new('localhost:11211', :namespace => 'pic2ch')
+end
+
+configure :development do
+  DB = Sequel.connect('sqlite://dev.db')
+  set :static_url, ""
+#  set :cache_enable, false
+end
+
 configure :production, :test do
   DB = Sequel.connect('sqlite:///home/gioext/pic2ch/db/production.sqlite3')
   set :static_url, "http://strage.orelog.us"
+
+  # log
+  #set :logging, false
+  set :dump_errors, true
+  f = File.open(File.dirname(__FILE__) + "/log/sinatra.log", "a")
+  STDOUT.reopen(f)
+  STDERR.reopen(f)
 
   not_found do
     erb '<div>404</div>'
@@ -121,9 +149,3 @@ configure :production, :test do
     erb '<div>500</div>'
   end
 end
-
-configure :development do
-  DB = Sequel.connect('sqlite://dev.db')
-  set :static_url, ""
-end
-

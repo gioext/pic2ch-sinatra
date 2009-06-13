@@ -1,6 +1,7 @@
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
+  alias_method :u, :escape
 
   def content(name)
     @content_variables ? @content_variables[name] : ''
