@@ -113,6 +113,9 @@ helpers do
       else
         html << %{<a href="#{request.path}?p=#{i}"><span class="enable_page">#{i}</span></a>}
       end
+      if i % 30 == 0
+        html << '<br />'
+      end
     end
     [ds.limit(limit, offset).all, %{<div class="paginate">#{html.join}</div>}]
   end
@@ -135,9 +138,9 @@ configure :production, :test do
   set :static_url, "http://strage.orelog.us"
 
   # log
-  #set :logging, false
-  #set :cache_logging, false
-  #set :dump_errors, true
+  set :logging, false
+  set :cache_logging, false
+  set :dump_errors, false
   #f = File.open(File.dirname(__FILE__) + "/log/sinatra.log", "a")
   #STDOUT.reopen(f)
   #STDERR.reopen(f)
