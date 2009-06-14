@@ -127,7 +127,7 @@ end
 configure :development do
   DB = Sequel.connect('sqlite://dev.db')
   set :static_url, ""
-#  set :cache_enable, false
+  set :cache_enable, false
 end
 
 configure :production, :test do
@@ -136,10 +136,11 @@ configure :production, :test do
 
   # log
   #set :logging, false
-  set :dump_errors, true
-  f = File.open(File.dirname(__FILE__) + "/log/sinatra.log", "a")
-  STDOUT.reopen(f)
-  STDERR.reopen(f)
+  #set :cache_logging, false
+  #set :dump_errors, true
+  #f = File.open(File.dirname(__FILE__) + "/log/sinatra.log", "a")
+  #STDOUT.reopen(f)
+  #STDERR.reopen(f)
 
   not_found do
     erb '<div>404</div>'

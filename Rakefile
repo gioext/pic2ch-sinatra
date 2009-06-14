@@ -1,5 +1,5 @@
 SERVER = "gioext@giox.org"
-APP_ROOT = "/home/gioext/pic2ch-sinatra2"
+APP_ROOT = "/home/gioext/pic2ch-sinatra"
 
 desc "deploy"
 task :deploy do
