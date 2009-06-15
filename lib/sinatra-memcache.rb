@@ -65,31 +65,47 @@ module Sinatra
       #
       #
       #
-      def expire(key)
+      def expire(p)
         return unless options.cache_enable
 
-        options.cache_client.delete(key)
-        log "expire: #{key}"
+        case p
+        when String
+          expire_key(p)
+        when Regexp
+          expire_regexp(p)
+        end
         true
-      rescue
+      rescue => e
+        throw e if development?
         false
       end
 
-      def expire_all(re)
-        return unless options.cache_enable
 
+      private
+
+      #
+      #
+      #
+      def log(msg)
+        puts "[sinatra-memcache] #{msg}" if options.cache_logging
+      end
+
+      #
+      #
+      #
+      def expire_key(key)
+        options.cache_client.delete(key)
+        log "expire: #{key}"
+      end
+
+      #
+      #
+      #
+      def expire_regexp(re)
         keys = options.cache_client.all_keys
         keys.each do |key|
           expire(key) if key =~ re
         end
-        true
-      rescue
-        false
-      end
-
-      private
-      def log(msg)
-        puts "[sinatra-memcache] #{msg}" if options.cache_logging
       end
     end
 
