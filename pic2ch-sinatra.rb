@@ -40,7 +40,7 @@ get '/star/:id' do
     if params[:id]
       board = DB[:boards].filter(:id => params[:id])
       board.update(:star => board.first[:star] + 1, :updated_at => Time.now)
-      expire "index"
+      expire /^index/
       expire "thread:#{id}"
     end
     'OK'
@@ -132,7 +132,7 @@ end
 configure :development do
   DB = Sequel.connect('sqlite://dev.db')
   set :static_url, ""
-  set :cache_enable, false
+#  set :cache_enable, false
 end
 
 configure :production, :test do
