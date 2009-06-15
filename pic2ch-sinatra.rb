@@ -4,7 +4,7 @@ require 'erb'
 require 'builder'
 require 'sequel'
 require File.dirname(__FILE__) + '/lib/helpers'
-require File.dirname(__FILE__) + '/lib/sinatra-memcache'
+require File.dirname(__FILE__) + '/lib/sinatra-memcache/lib/sinatra/memcache'
 
 get '/' do
   p = params[:p] || '1'
@@ -50,7 +50,7 @@ get '/star/:id' do
 end
 
 get '/expire-cache-all' do
-  expire(/^pic2ch:/)
+  expire(//)
   redirect '/'
 end
 
@@ -125,7 +125,8 @@ end
 ##
 
 configure do
-  set :cache_client, MemCache.new('localhost:11211', :namespace => 'pic2ch')
+  set :cache_namespace, "pic2ch"
+  set :cache_server, "localhost:11211"
 end
 
 configure :development do
@@ -138,13 +139,9 @@ configure :production, :test do
   DB = Sequel.connect('sqlite:///home/gioext/pic2ch/db/production.sqlite3')
   set :static_url, "http://strage.orelog.us"
 
-  # log
   set :logging, false
   set :cache_logging, false
   set :dump_errors, false
-  #f = File.open(File.dirname(__FILE__) + "/log/sinatra.log", "a")
-  #STDOUT.reopen(f)
-  #STDERR.reopen(f)
 
   not_found do
     erb '<div>404</div>'
