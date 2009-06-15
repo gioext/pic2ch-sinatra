@@ -50,7 +50,7 @@ get '/star/:id' do
 end
 
 get '/expire-cache-all' do
-  expire_all
+  expire(/^pic2ch:/)
   redirect '/'
 end
 
