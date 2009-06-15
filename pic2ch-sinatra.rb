@@ -7,7 +7,8 @@ require File.dirname(__FILE__) + '/lib/helpers'
 require File.dirname(__FILE__) + '/lib/sinatra-memcache'
 
 get '/' do
-  cache "index" do
+  p = params[:p] || '1'
+  cache "index:#{p}" do
     erb :index
   end
 end
