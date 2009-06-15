@@ -2,6 +2,40 @@ require 'memcache'
 #require 'rubygems'
 #require 'sinatra/base'
 
+class MemCache
+  def all_keys
+    raise MemCacheError, "No active servers" unless active?
+    keys = []
+
+    @servers.each do |server|
+      sock = server.socket
+      raise MemCacheError, "No connection to server" if sock.nil?
+
+      begin
+        sock.write "stats items\r\n"
+        slabs = {}
+        while line = sock.gets
+          break if line == "END\r\n"
+          slabs[$1] = $2 if line =~ /^STAT items:(\d+):number (\d+)/ 
+        end
+
+        slabs.each do |k, v|
+          sock.write "stats cachedump #{k} #{v}\r\n"
+          while line = sock.gets
+            break if line == "END\r\n"
+            keys << $1 if line =~ /^ITEM ([^\s]+)/
+          end
+        end
+      rescue SocketError, SystemCallError, IOError => err
+        server.close
+        raise MemCacheError, err.message
+      end
+    end
+
+    keys
+  end
+end
+
 module Sinatra
   module MemCache
     module Helpers
@@ -20,9 +54,6 @@ module Sinatra
         unless value
           value = block.call
           client.set(key, value, opt[:expiry], opt[:raw])
-          keys = client['cache:keys'] || []
-          keys << key
-          client.set('cache:keys', keys);
           log "cache: #{key}"
         end
         value
@@ -44,15 +75,16 @@ module Sinatra
         false
       end
 
-      def expire_all
+      def expire_all(re)
         return unless options.cache_enable
 
-        keys = options.cache_client['cache:keys'] || []
+        keys = options.cache_client.all_keys
         keys.each do |key|
-          expire(key)
+          expire(key) if key =~ re
         end
-        expire('cache:keys')
+        true
       rescue
+        false
       end
 
       private
