@@ -115,7 +115,7 @@ helpers do
         html << %{<a href="#{request.path}?p=#{i}"><span class="enable_page">#{i}</span></a>}
       end
       if i % 30 == 0
-        html << '<br />'
+        html << '<br /><br />'
       end
     end
     [ds.limit(limit, offset).all, %{<div class="paginate">#{html.join}</div>}]
@@ -132,7 +132,7 @@ end
 configure :development do
   DB = Sequel.connect('sqlite://dev.db')
   set :static_url, ""
-#  set :cache_enable, false
+  set :cache_enable, false
 end
 
 configure :production, :test do
