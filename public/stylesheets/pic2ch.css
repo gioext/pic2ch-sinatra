@@ -165,19 +165,24 @@ ul {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.paginate a {
+.paginate div {
+    float: left;
+    width: 20px;
+    text-align: center;
     padding: 5px;
     margin: 1px;
-    border: solid 1px #ccc;
 }
-.paginate span.disable_page {
-    padding: 5px;
-    margin: 1px;
+.paginate div.disable_page {
     color: #000;
     font-weight: bold;
     border: solid 1px #333;
 }
-.paginate span.enable_page { }
+.paginate div.enable_page {
+    border: solid 1px #ccc;
+}
+.clear {
+    clear: both;
+}
 .new {
     background-image: url("/images/new.gif");
     background-repeat: no-repeat;

@@ -110,15 +110,12 @@ helpers do
     html = []
     (1..p_max).each do |i|
       if i == page
-        html << %{<span class="disable_page">#{i}</span>}
+        html << %{<div class="disable_page">#{i}</div>}
       else
-        html << %{<a href="#{request.path}?p=#{i}"><span class="enable_page">#{i}</span></a>}
-      end
-      if i % 30 == 0
-        html << '<br /><br />'
+        html << %{<a href="#{request.path}?p=#{i}"><div class="enable_page">#{i}</div></a>}
       end
     end
-    [ds.limit(limit, offset).all, %{<div class="paginate">#{html.join}</div>}]
+    [ds.limit(limit, offset).all, %{<div class="paginate">\n#{html.join("\n")}\n</div>\n<div class="clear"></div>}]
   end
 end
 

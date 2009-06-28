@@ -2,22 +2,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" >
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-<meta http-equiv="content-script-type" content="text/javascript"/>
-<meta http-equiv="content-style-type" content="text/css"/>
 <meta name="keywords" content="2ch,画像,絵,まとめ,<%= content :keywords %>"/>
 <meta name="description" content="<%= content :description %> - 2ch画像まとめ。2chに書き込まれた画像が全て見れます！面白画像、エロ画像多数あり。常に最新の情報に更新されています。"/>
 <meta name="verify-v1" content="ePPL3qVW/7DeTPnasbxeygRQZ2pcSSeKm/y5ixvw7dE=" />
 <meta name="y_key" content="eb7d4d3b35906d30" />
 <link rel="alternate" type="application/atom+xml" title="Atom" href="/feed" />
-<link rel="stylesheet" type="text/css" href="<%= static('/stylesheets/pic2ch-min.css?1') %>" />
+<link rel="stylesheet" type="text/css" href="<%= static('/stylesheets/pic2ch-min.css?4') %>" />
 <title><%= content :title %> - 2ch画像まとめ</title>
 </head>
 <body>
 <div id="header">
 <h1><a href="/" style="color:#000">2ch画像まとめ</a>
 <% if production? %>
-<a href="http://b.hatena.ne.jp/append?http://pic2ch.giox.org/"><img src="<%= static('/images/b_hatena.gif') %>" alt="Hatenaブックマークに追加" title="Hatenaブックマークに追加"></a><a href="http://b.hatena.ne.jp/entry/http://pic2ch.giox.org/"><img src="http://b.hatena.ne.jp/entry/image/normal/http://pic2ch.giox.org/"></a><a href="http://clip.livedoor.com/clip/add?link=http://pic2ch.giox.org/"><img src="<%= static('/images/b_clip.gif') %>" alt="livedoorクリップに追加" title="livedoorクリップに追加"></a><a href="/feed"><img src="<%= static('/images/feed.png') %>" /></a>
+<a href="http://b.hatena.ne.jp/append?http://pic2ch.giox.org/"><img src="<%= static('/images/b_hatena.gif') %>" alt="Hatenaブックマークに追加" title="Hatenaブックマークに追加" /></a><a href="http://b.hatena.ne.jp/entry/http://pic2ch.giox.org/"><img src="http://b.hatena.ne.jp/entry/image/normal/http://pic2ch.giox.org/" /></a><a href="http://clip.livedoor.com/clip/add?link=http://pic2ch.giox.org/"><img src="<%= static('/images/b_clip.gif') %>" alt="livedoorクリップに追加" title="livedoorクリップに追加" /></a><a href="/feed"><img src="<%= static('/images/feed.png') %>" /></a>
 <% end %>
 </h1>
 </div>
