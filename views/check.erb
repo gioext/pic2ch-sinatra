@@ -4,7 +4,7 @@
 <% for p in @pictures %>
 <% if n % 5 == 0 %><tr><% end %>
 <td>
-<img src="<%= picurl %>/thumbs/<%= p[:thread_id] %>/<%= p[:url] %>" />
+<img src="<%= static('thumbs/' + p[:thread_id] + '/' + p[:url]) %>" />
 <div><a href="">guro</a></div>
 </td>
 <% if n % 5 == 4 %></tr><% end %>

@@ -28,11 +28,26 @@ get '/admin/info' do
   erb 'info'
 end
 
+helpers do
+  def static(path = nil)
+    options.static_url + path.to_s
+  end
+  def picdata
+    "#{last_history[:count]}Pieces/#{last_history[:size].to_i / (1024 * 1024)}Mbyte"
+  end
+  def last_history
+    @last_history ||= DB[:histories].reverse_order(:id).first
+  end
+  def last_updated
+    last_history[:value].gsub('.', '/')
+  end
+end
+
 ##
 
 configure :production, :test do
   DB = Sequel.connect('sqlite:///home/gioext/pic2ch/db/production.sqlite3')
-  set :picurl, "http://strage.orelog.us"
+  set :static_url, "http://strage.orelog.us"
 
   not_found do
     '<div>404</div><div><a href="/">TOP</a></div>' 
@@ -45,6 +60,6 @@ end
 
 configure :development do
   DB = Sequel.connect('sqlite://dev.db')
-  set :picurl, "http://localhost/~kazuki/strage"
+  set :static_url, "/"
 end
 
