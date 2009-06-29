@@ -1,3 +1,4 @@
+require 'open-uri'
 SERVER = "gioext@giox.org"
 APP_ROOT = "/home/gioext/pic2ch-sinatra"
 
@@ -11,5 +12,8 @@ end
 desc "restart"
 task :restart do
   sh "ssh #{SERVER} touch #{APP_ROOT}/tmp/restart.txt"
+  open('http://pic2ch.giox.org/expire-cache-all') do |f|
+    f.read
+  end
 end
 

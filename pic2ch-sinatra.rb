@@ -27,10 +27,18 @@ get '/thread/:id/?*' do
 end
 
 get '/feed' do
+  content_type "application/atom+xml"
   cache "feed" do
     @feeds = DB[:feeds].reverse_order(:id).limit(10)
-    content_type "application/atom+xml"
     builder :feed
+  end
+end
+
+get '/sitemap' do
+  content_type 'application/xml'
+  cache 'sitemap', :expiry => 36000, :compress => true do
+    @boards = DB[:boards].all
+    builder :sitemap
   end
 end
 
@@ -110,12 +118,12 @@ helpers do
     html = []
     (1..p_max).each do |i|
       if i == page
-        html << %{<div class="disable_page">#{i}</div>}
+        html << %{<span class="disable_page">#{i}</span>}
       else
-        html << %{<a href="#{request.path}?p=#{i}"><div class="enable_page">#{i}</div></a>}
+        html << %{<a href="#{request.path}?p=#{i}"><span class="enable_page">#{i}</span></a>}
       end
     end
-    [ds.limit(limit, offset).all, %{<div class="paginate">\n#{html.join("\n")}\n</div>\n<div class="clear"></div>}]
+    [ds.limit(limit, offset).all, %{<div class="paginate">\n#{html.join("\n")}\n</div><br class="clear" />}]
   end
 end
 
