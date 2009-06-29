@@ -17,9 +17,13 @@ get '/thread/:id/?*' do
   cache "thread:#{params[:id]}" do
     @board = DB[:boards][:id => params[:id]]
     unless @board
+      @board = { :title => 'Nothing' }
       halt erb(:del)
     end
     pictures = DB[:pictures].filter(:board_id => params[:id]).map(:url)
+    if pictures.empty?
+      halt erb(:del)
+    end
     @count = pictures.length
     @urls = pictures.join(':')
     erb :thread
@@ -66,7 +70,7 @@ end
 
 helpers do
   def parts_board_list
-    ds = DB[:boards].reverse_order(:updated_at)
+    ds = DB[:boards].filter(:active => true).reverse_order(:updated_at)
     @boards, @paginate = paginate(ds, params[:p] || 1)
     partial :list
   end

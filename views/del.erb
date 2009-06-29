@@ -1,4 +1,6 @@
-<% content_for :keywords, 'Nothing' %>
-<% content_for :description, 'Nothing' %>
-<% content_for :title, 'Nothing' %>
-<div>このスレッドは削除されたよ</div>
+<% content_for :keywords, @board[:title].strip %>
+<% content_for :description, @board[:title].strip %>
+<% content_for :title, @board[:title].strip %>
+<h2><%= @board[:title] %></h2>
+<div>このスレッドは削除されました。別スレッドをお楽しみください。</div>
+<div><a href="/">2ch画像まとめTOP</a></div>
